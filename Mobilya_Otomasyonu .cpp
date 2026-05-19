@@ -11,7 +11,7 @@ using namespace std;
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 struct musteriBilgisi { 
-    char adSoyAd[100]; // string kullanamýyoz cünkü binarry
+    char adSoyAd[100]; // string kullanamÄ±yoz cÃ¼nkÃ¼ binarry
     char id[20];
 };
 
@@ -29,7 +29,7 @@ struct mobilyaBilgisi {
 struct satislar {
     char musteriId[20];
     char mobilyaId[20];
-    int satisAdet; // hesaplama kolaylýðý için int yapýldý
+    int satisAdet; // hesaplama kolaylÄ±ÄŸÄ± iÃ§in int yapÄ±ldÄ±
     int total;
 };
 
@@ -38,36 +38,36 @@ struct satislar {
 void mobilyaEkle(){
     mobilyaBilgisi a;
     ofstream mobilyaDosya;
-    mobilyaDosya.open("mobilyalar.txt", ios::app | ios::binary); // dosyayý acar ve kaydeder 
+    mobilyaDosya.open("mobilyalar.txt", ios::app | ios::binary); // dosyayÄ± acar ve kaydeder 
     
     if (!mobilyaDosya){
-        cout << "|| Dosya Acýlamadý" << endl; // dosya acýlmaz ise ekrana yazý cýkartýr
+        cout << "|| Dosya AcÄ±lamadÄ±" << endl; // dosya acÄ±lmaz ise ekrana yazÄ± cÄ±kartÄ±r
         return;
     }
     
    	
-    cout << "|| Lütfen mobilyanýn adýný giriniz: ";
+    cout << "|| LÃ¼tfen mobilyanÄ±n adÄ±nÄ± giriniz: ";
 	cin.getline(a.mobilyaAdi, 100);
     
-    cout << "|| Lütfen mobilyanýn id numarasýný giriniz: ";
+    cout << "|| LÃ¼tfen mobilyanÄ±n id numarasÄ±nÄ± giriniz: ";
     cin.getline(a.id, 20);
     
-    cout << "|| Lütfen mobilyanýn stok bilgisini giriniz: ";
+    cout << "|| LÃ¼tfen mobilyanÄ±n stok bilgisini giriniz: ";
     cin >> a.stok;
     cin.ignore(); //cini temizler
     
-    cout << "|| Lütfen mobilyanýn fiyatýný giriniz: ";
+    cout << "|| LÃ¼tfen mobilyanÄ±n fiyatÄ±nÄ± giriniz: ";
     cin >> a.fiyat;
     cin.ignore();
     
-    mobilyaDosya.write((char*)&a, sizeof(mobilyaBilgisi));   // binary olarak structý tek seferde yazýyoruz yoksa sýkýntý oluyo
+    mobilyaDosya.write((char*)&a, sizeof(mobilyaBilgisi));   // binary olarak structÄ± tek seferde yazÄ±yoruz yoksa sÄ±kÄ±ntÄ± oluyo
     
     cout << "|| ----------------------" << endl;
-    cout << "|| Girdiðiniz Bilgiler" << endl;
+    cout << "|| GirdiÄŸiniz Bilgiler" << endl;
     cout << "|| Mobilya ismi: " << a.mobilyaAdi << endl;
     cout << "|| Mobilya id: " << a.id << endl;
     cout << "|| Mobilya stok bilgisi: " << a.stok << endl;
-    cout << "|| Mobilya fiyatý: " << a.fiyat << "TL" << endl;
+    cout << "|| Mobilya fiyatÄ±: " << a.fiyat << "TL" << endl;
     cout << "|| ----------------------" << endl;
     
     mobilyaDosya.close();
@@ -79,39 +79,39 @@ void mobilyaSil(){
     mobilyaBilgisi a;
     char silinecekId[20];
     char devam;
-    bool bulundu = false;//kontol için
-    bool silindi = false;// kontrol için
+    bool bulundu = false;//kontol iÃ§in
+    bool silindi = false;// kontrol iÃ§in
     
     ifstream mobilyaDosya("mobilyalar.txt", ios::binary);
     ofstream temp("temp.txt", ios::binary);
     
     if (!mobilyaDosya || !temp){
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
-    cout << "|| Lütfen silinecek olan id numarasini giriniz: ";
-    cin.getline(silinecekId, 20); // id kontrol için id alýr
+    cout << "|| LÃ¼tfen silinecek olan id numarasini giriniz: ";
+    cin.getline(silinecekId, 20); // id kontrol iÃ§in id alÄ±r
 
     while (mobilyaDosya.read((char*)&a, sizeof(mobilyaBilgisi))){
-        if (strcmp(a.id, silinecekId) == 0) { // dosyadaki id ile silinecek id kontolünü yapar ve eþit ise if calýþýr *
-            bulundu = true; //kontol için
+        if (strcmp(a.id, silinecekId) == 0) { // dosyadaki id ile silinecek id kontolÃ¼nÃ¼ yapar ve eÅŸit ise if calÄ±ÅŸÄ±r *
+            bulundu = true; //kontol iÃ§in
             cout << "|| ----------------------" << endl;
             cout << "|| Silinecek Mobilya Bilgileri" << endl;
             cout << "|| Mobilya ismi: " << a.mobilyaAdi << endl;
             cout << "|| Mobilya id: " << a.id << endl;
             cout << "|| Mobilya stok bilgisi: " << a.stok << endl;
-            cout << "|| Mobilya fiyatý: " << a.fiyat << endl;
+            cout << "|| Mobilya fiyatÄ±: " << a.fiyat << endl;
             cout << "|| ----------------------" << endl;
-            cout << "|| Ýþleme devam etmek istermisiniz (E/e H/h): ";
+            cout << "|| Ä°ÅŸleme devam etmek istermisiniz (E/e H/h): ";
             cin >> devam;
             cin.ignore();
             
             if (devam == 'e' || devam == 'E'){
                 silindi = true;
-                // temp dosyasýna yazmýyoruz (böylece silinmiþ oluyor)
+                // temp dosyasÄ±na yazmÄ±yoruz (bÃ¶ylece silinmiÅŸ oluyor)
             } else {
-                temp.write((char*)&a, sizeof(mobilyaBilgisi)); //iptal edilirse tekrar yazýlýr
+                temp.write((char*)&a, sizeof(mobilyaBilgisi)); //iptal edilirse tekrar yazÄ±lÄ±r
             }
         } else{
             temp.write((char*)&a, sizeof(mobilyaBilgisi));  //tekrar yazar
@@ -125,13 +125,13 @@ void mobilyaSil(){
         remove("mobilyalar.txt");
         rename("temp.txt", "mobilyalar.txt");
         cout << "|| ----------------------" << endl;
-        cout << "|| Ýstenilen id bulunmuþtur" << endl; //silineni göstermek için
-        cout << "|| Silme islemi gerceklesmiþtir" << endl;
+        cout << "|| Ä°stenilen id bulunmuÅŸtur" << endl; //silineni gÃ¶stermek iÃ§in
+        cout << "|| Silme islemi gerceklesmiÅŸtir" << endl;
         cout << "|| ----------------------" << endl;
     } else{
         remove("temp.txt");
         if (!bulundu) {
-            cout << "|| Bu id mevcut deðildir." << endl;
+            cout << "|| Bu id mevcut deÄŸildir." << endl;
         }
     }
 }
@@ -141,39 +141,39 @@ void mobilyaSil(){
 void mobilyaDuzenle(){
     mobilyaBilgisi a;
     char duzenlenecekId[20];
-    bool bulundu = false; //kontol için
+    bool bulundu = false; //kontol iÃ§in
     
     ifstream mobilyaDosya("mobilyalar.txt", ios::binary);
     ofstream temp("temp.txt", ios::binary);
     
     if (!mobilyaDosya){
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
-    cout << "|| Lütfen düzenlenecek olan id numarasýný giriniz: ";
+    cout << "|| LÃ¼tfen dÃ¼zenlenecek olan id numarasÄ±nÄ± giriniz: ";
     cin.getline(duzenlenecekId, 20);
 
     while (mobilyaDosya.read((char*)&a, sizeof(mobilyaBilgisi))) {
-        if (strcmp(a.id, duzenlenecekId) == 0) { //silme ile ayný mantýkta calýþýr 
+        if (strcmp(a.id, duzenlenecekId) == 0) { //silme ile aynÄ± mantÄ±kta calÄ±ÅŸÄ±r 
             bulundu = true;
             cout << "|| ----------------------" << endl;
-            cout << "|| Düzenlenecek Mobilya Bilgileri" << endl;
+            cout << "|| DÃ¼zenlenecek Mobilya Bilgileri" << endl;
             cout << "|| Mobilya ismi: " << a.mobilyaAdi << endl;
             cout << "|| Mobilya id: " << a.id << endl;
             cout << "|| Mobilya stok bilgisi: " << a.stok << endl;
-            cout << "|| Mobilya fiyatý: " << a.fiyat << endl;
+            cout << "|| Mobilya fiyatÄ±: " << a.fiyat << endl;
             cout << "|| ----------------------" << endl;
-            cout << "|| MOBÝLYA BÝLGÝSÝ GÜNCELLENMESÝ " << endl;
+            cout << "|| MOBÄ°LYA BÄ°LGÄ°SÄ° GÃœNCELLENMESÄ° " << endl;
             
-            cout << "|| Lütfen mobilyanin ismini giriniz: ";
-            cin.getline(a.mobilyaAdi, 100); //boþlukla beraber kullanmak için kullanýlýr yoksa boþluktan sonrakini almaz
-            cout << "|| Lütfen mobilyanin id numarasini giriniz: ";
+            cout << "|| LÃ¼tfen mobilyanin ismini giriniz: ";
+            cin.getline(a.mobilyaAdi, 100); //boÅŸlukla beraber kullanmak iÃ§in kullanÄ±lÄ±r yoksa boÅŸluktan sonrakini almaz
+            cout << "|| LÃ¼tfen mobilyanin id numarasini giriniz: ";
             cin.getline(a.id, 20);
-            cout << "|| Lütfen mobilyanin stok bilgisini giriniz: ";
+            cout << "|| LÃ¼tfen mobilyanin stok bilgisini giriniz: ";
             cin >> a.stok;
             cin.ignore();
-            cout << "|| Lütfen mobilyanin fiyatini giriniz: ";
+            cout << "|| LÃ¼tfen mobilyanin fiyatini giriniz: ";
             cin >> a.fiyat;
             cin.ignore();
             
@@ -187,12 +187,12 @@ void mobilyaDuzenle(){
     temp.close();
     
     if (!bulundu) {
-        cout << "|| Girilen ÝD bulunamadý" << endl;
+        cout << "|| Girilen Ä°D bulunamadÄ±" << endl;
         remove("temp.txt");
         return;
     }
     
-    cout << "|| Mobilya bilgileriniz güncellenmiþtir. " << endl;
+    cout << "|| Mobilya bilgileriniz gÃ¼ncellenmiÅŸtir. " << endl;
     remove("mobilyalar.txt");
     rename("temp.txt", "mobilyalar.txt");
 }
@@ -204,7 +204,7 @@ void mobilyaListele() {
     ifstream mobilyaDosya("mobilyalar.txt", ios::binary);
     
     if (!mobilyaDosya) {
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
@@ -214,7 +214,7 @@ void mobilyaListele() {
         cout << "|| Mobilya ismi: " << a.mobilyaAdi << endl;
         cout << "|| Mobilya id: " << a.id << endl;
         cout << "|| Mobilya stok bilgisi: " << a.stok << endl;
-        cout << "|| Mobilya fiyatý: " << a.fiyat << endl;
+        cout << "|| Mobilya fiyatÄ±: " << a.fiyat << endl;
         cout << "|| ----------------------" << endl;
     }
     
@@ -228,21 +228,21 @@ void musteriEkle() {
     ofstream musteriDosya("musteriler.txt", ios::app | ios::binary);
     
     if (!musteriDosya) {
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
-    cout << "|| Lütfen müþterinin ismini ve soy ismini giriniz: ";
+    cout << "|| LÃ¼tfen mÃ¼ÅŸterinin ismini ve soy ismini giriniz: ";
     cin.getline(a.adSoyAd, 100);
-    cout << "|| Lütfen müþterinin id numarasýný giriniz: ";
+    cout << "|| LÃ¼tfen mÃ¼ÅŸterinin id numarasÄ±nÄ± giriniz: ";
     cin.getline(a.id, 20);
     
     musteriDosya.write((char*)&a, sizeof(musteriBilgisi));
     
     cout << "|| ----------------------" << endl;
     cout << "|| Girdiginiz Bilgiler" << endl;
-    cout << "|| Müsteri ismi: " << a.adSoyAd << endl;
-    cout << "|| Müsteri id: " << a.id << endl;
+    cout << "|| MÃ¼steri ismi: " << a.adSoyAd << endl;
+    cout << "|| MÃ¼steri id: " << a.id << endl;
     cout << "|| ----------------------" << endl;
     
     musteriDosya.close();
@@ -255,14 +255,14 @@ void musteriListele() {
     ifstream musteriDosya("musteriler.txt", ios::binary); //binary olarak acar
     
     if (!musteriDosya) {
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
     cout << "|| ----------------------" << endl;
-    while (musteriDosya.read((char*)&a, sizeof(musteriBilgisi))) { //char olarak yazmasý için
-        cout << "|| Müsteri ismi: " << a.adSoyAd << endl;
-        cout << "|| Müsteri id: " << a.id << endl;
+    while (musteriDosya.read((char*)&a, sizeof(musteriBilgisi))) { //char olarak yazmasÄ± iÃ§in
+        cout << "|| MÃ¼steri ismi: " << a.adSoyAd << endl;
+        cout << "|| MÃ¼steri id: " << a.id << endl;
         cout << "|| ----------------------" << endl;
     }
     musteriDosya.close();
@@ -281,22 +281,22 @@ void musteriSil() {
     ofstream temp("temp.txt", ios::binary);
     
     if (!musteriDosya || !temp) {
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
-    cout << "|| Lütfen silinecek olan id numarasýný giriniz: ";
+    cout << "|| LÃ¼tfen silinecek olan id numarasÄ±nÄ± giriniz: ";
     cin.getline(silinecekId, 20);
 
     while (musteriDosya.read((char*)&a, sizeof(musteriBilgisi))) {
         if (strcmp(a.id, silinecekId) == 0) {
             bulundu = true;
             cout << "|| ----------------------" << endl;
-            cout << "|| Silinecek Müþterinin Bilgileri" << endl;
-            cout << "|| Müsteri ismi: " << a.adSoyAd << endl;
-            cout << "|| Müsteri id: " << a.id << endl;
+            cout << "|| Silinecek MÃ¼ÅŸterinin Bilgileri" << endl;
+            cout << "|| MÃ¼steri ismi: " << a.adSoyAd << endl;
+            cout << "|| MÃ¼steri id: " << a.id << endl;
             cout << "|| ----------------------" << endl;
-            cout << "|| Ýþleme devam etmek istermisiniz (E/e H/h): ";
+            cout << "|| Ä°ÅŸleme devam etmek istermisiniz (E/e H/h): ";
             cin >> devam;
             cin.ignore();
             
@@ -317,13 +317,13 @@ void musteriSil() {
         remove("musteriler.txt");
         rename("temp.txt", "musteriler.txt");
         cout << "|| ----------------------" << endl;
-        cout << "|| Ýstenilen id bulunmuþtur" << endl;
-        cout << "|| Silme iþlemi gercekleþtirilmiþtir" << endl;
+        cout << "|| Ä°stenilen id bulunmuÅŸtur" << endl;
+        cout << "|| Silme iÅŸlemi gercekleÅŸtirilmiÅŸtir" << endl;
         cout << "|| ----------------------" << endl;
     } else {
         remove("temp.txt");
         if (!bulundu) {
-            cout << "|| Bu id mevcut deðildir." << endl;
+            cout << "|| Bu id mevcut deÄŸildir." << endl;
         }
     }
 }
@@ -331,15 +331,15 @@ void musteriSil() {
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 void satisYap() {
-    musteriBilgisi m; //okunaný tutar
+    musteriBilgisi m; //okunanÄ± tutar
     mobilyaBilgisi mob;  //yazar
     satislar s;
     char musteriIdKontrol[20], mobilyaIdKontrol[20];
-    bool mBulundu = false, mobBulundu = false;  //kontol etmek için
+    bool mBulundu = false, mobBulundu = false;  //kontol etmek iÃ§in
     int adet;
     
     
-    cout << "|| Lütfen Müsterinin id numarasini giriniz: "; //müþteri id konturolü için yapýlmýþtýr
+    cout << "|| LÃ¼tfen MÃ¼sterinin id numarasini giriniz: "; //mÃ¼ÅŸteri id konturolÃ¼ iÃ§in yapÄ±lmÄ±ÅŸtÄ±r
     cin.getline(musteriIdKontrol, 20);
     
     ifstream mDosya("musteriler.txt", ios::binary);
@@ -349,33 +349,33 @@ void satisYap() {
             break;
         }
     }
-    mDosya.close(); //dosyamýz kapanýr
+    mDosya.close(); //dosyamÄ±z kapanÄ±r
     
     if (!mBulundu) {
-        cout << "|| Bu id numarasýna sahip müþteri yoktur." << endl; //kontol için
+        cout << "|| Bu id numarasÄ±na sahip mÃ¼ÅŸteri yoktur." << endl; //kontol iÃ§in
         return;
     }
 
    
-    cout << "|| Lütfen mobilyaniýn id numarasýný giriniz: "; //mobilya id kontorlu için
+    cout << "|| LÃ¼tfen mobilyaniÄ±n id numarasÄ±nÄ± giriniz: "; //mobilya id kontorlu iÃ§in
     cin.getline(mobilyaIdKontrol, 20);
     
     ifstream mobDosya("mobilyalar.txt", ios::binary);
     while (mobDosya.read((char*)&mob, sizeof(mobilyaBilgisi))) {
         if (strcmp(mob.id, mobilyaIdKontrol) == 0) {
-            mobBulundu = true; //bulunursa ture olur ve ifi calýþtýrýr
+            mobBulundu = true; //bulunursa ture olur ve ifi calÄ±ÅŸtÄ±rÄ±r
             break;
         }
     }
     mobDosya.close();
     
     if (!mobBulundu) {
-        cout << "|| Bu id numarasýna sahip mobilya yoktur." << endl;
+        cout << "|| Bu id numarasÄ±na sahip mobilya yoktur." << endl;
         return;
     }
 
-    cout << "|| Lütfen satiþ adetini giriniz: ";
-    cin >> adet;												// Satýþ Ýþlemi ve Stok Güncelleme
+    cout << "|| LÃ¼tfen satiÅŸ adetini giriniz: ";
+    cin >> adet;												// SatÄ±ÅŸ Ä°ÅŸlemi ve Stok GÃ¼ncelleme
     cin.ignore();												
 
     ifstream mobOku("mobilyalar.txt", ios::binary);
@@ -384,12 +384,12 @@ void satisYap() {
 
     while (mobOku.read((char*)&mob, sizeof(mobilyaBilgisi))) {					
         if (strcmp(mob.id, mobilyaIdKontrol) == 0) {
-            if (mob.stok >= adet) {					//stok kontol ve stok düþürmek ýcýn				
+            if (mob.stok >= adet) {					//stok kontol ve stok dÃ¼ÅŸÃ¼rmek Ä±cÄ±n				
                 mob.stok -= adet;
                 stokYeterli = true;
               																	
                 strcpy(s.musteriId, musteriIdKontrol);
-                strcpy(s.mobilyaId, mobilyaIdKontrol); //yeni býlgýlerý kayýt alýr
+                strcpy(s.mobilyaId, mobilyaIdKontrol); //yeni bÄ±lgÄ±lerÄ± kayÄ±t alÄ±r
                 s.satisAdet = adet;
                 s.total = adet * mob.fiyat;
                 																
@@ -409,7 +409,7 @@ void satisYap() {
     if (stokYeterli) {
         remove("mobilyalar.txt");
         rename("temp.txt", "mobilyalar.txt");
-        cout << "|| Satiþ baþariyla yapýldý." << endl;
+        cout << "|| SatiÅŸ baÅŸariyla yapÄ±ldÄ±." << endl;
     } else {
         remove("temp.txt");
     }
@@ -422,15 +422,15 @@ void satisListele() {
     ifstream satisDosya("satislar.txt", ios::binary);
     
     if (!satisDosya) {
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
     cout << "|| ----------------------" << endl;
     while (satisDosya.read((char*)&s, sizeof(satislar))) {
-        cout << "|| Müsteri ID: " << s.musteriId << endl;
+        cout << "|| MÃ¼steri ID: " << s.musteriId << endl;
         cout << "|| Mobilya ID: " << s.mobilyaId << endl;
-        cout << "|| Satiþ adedi: " << s.satisAdet << endl;
+        cout << "|| SatiÅŸ adedi: " << s.satisAdet << endl;
         cout << "|| Toplam tutar: " << s.total << "TL" << endl;
         cout << "|| ----------------------" << endl;
     }
@@ -446,19 +446,19 @@ void aramaYap() {
     
     ifstream musteriDosya("musteriler.txt", ios::binary);
     if (!musteriDosya) {
-        cout << "|| Dosya Acýlmadý" << endl;
+        cout << "|| Dosya AcÄ±lmadÄ±" << endl;
         return;
     }
     
-    cout << "|| Lütfen aramak istediðiniz müþteri id numarasýný girin: ";
+    cout << "|| LÃ¼tfen aramak istediÄŸiniz mÃ¼ÅŸteri id numarasÄ±nÄ± girin: ";
     cin.getline(arananId, 20);
     
     while (musteriDosya.read((char*)&a, sizeof(musteriBilgisi))) {
         if (strcmp(a.id, arananId) == 0) {
             cout << "|| ----------------------" << endl;
-            cout << "|| Aran id bulunmuþtur" << endl;
-            cout << "|| Müsteri ismi: " << a.adSoyAd << endl;
-            cout << "|| Müsteri id: " << a.id << endl;
+            cout << "|| Aran id bulunmuÅŸtur" << endl;
+            cout << "|| MÃ¼steri ismi: " << a.adSoyAd << endl;
+            cout << "|| MÃ¼steri id: " << a.id << endl;
             cout << "|| ----------------------" << endl;
             bulundu = true;
             break;
@@ -466,7 +466,7 @@ void aramaYap() {
     }
     
     if (!bulundu) {
-        cout << "|| Aranan id sistemde kayýtlý deðildir " << endl;
+        cout << "|| Aranan id sistemde kayÄ±tlÄ± deÄŸildir " << endl;
     }
     musteriDosya.close();
 }
@@ -481,21 +481,21 @@ int main() {
         system("cls");
         int secim, secim_2;
         
-        cout << "|| MENÜ " << endl;
+        cout << "|| MENÃœ " << endl;
         cout << "||                               " << endl;
-        cout << "|| 1-Mobilya iþlemleri           " << endl;
-        cout << "|| 2-Müþteri iþlemleri           " << endl;
-        cout << "|| 3-Satiþ iþlemleri             " << endl;
+        cout << "|| 1-Mobilya iÅŸlemleri           " << endl;
+        cout << "|| 2-MÃ¼ÅŸteri iÅŸlemleri           " << endl;
+        cout << "|| 3-SatiÅŸ iÅŸlemleri             " << endl;
         cout << "|| 4-Arama Yap                   " << endl;
-        cout << "|| 0-Cikiþ                       " << endl;
+        cout << "|| 0-CikiÅŸ                       " << endl;
         cout << "||                               " << endl;
-        cout << "|| Lütfen Yapmak Ýstediginiz Ýþlemi Seciniz: ";
+        cout << "|| LÃ¼tfen Yapmak Ä°stediginiz Ä°ÅŸlemi Seciniz: ";
         cin >> secim;
         cin.ignore();
         
         if (secim == 0) {
             cout << "|| ------------------------------------------" << endl;
-            cout << "|| Bizi tercih ettiðiniz için teþekür ederiz." << endl;
+            cout << "|| Bizi tercih ettiÄŸiniz iÃ§in teÅŸekÃ¼r ederiz." << endl;
             cout << "|| ------------------------------------------" << endl;
             return 0;
         }
@@ -506,13 +506,13 @@ int main() {
             char mDevam;
             do {
                 system("cls");
-                cout << "|| MOBÝLYA ÝÞLEMLERÝ " << endl;
+                cout << "|| MOBÄ°LYA Ä°ÅžLEMLERÄ° " << endl;
                 cout << "|| 1-Mobilya Ekle" << endl;
                 cout << "|| 2-Mobilya Sil" << endl;
-                cout << "|| 3-Mobilya Düzenle" << endl;
-                cout << "|| 4-Mobilyalarý Listele" << endl;
-                cout << "|| 0-Cikiþ " << endl;
-                cout << "|| Lütfen Yapmak Ýstediðiniz Ýþleimi Seciniz: ";
+                cout << "|| 3-Mobilya DÃ¼zenle" << endl;
+                cout << "|| 4-MobilyalarÄ± Listele" << endl;
+                cout << "|| 0-CikiÅŸ " << endl;
+                cout << "|| LÃ¼tfen Yapmak Ä°stediÄŸiniz Ä°ÅŸleimi Seciniz: ";
                 cin >> secim_2;
                 cin.ignore();
                 
@@ -523,7 +523,7 @@ int main() {
                     case 4: mobilyaListele(); break;
                 }
                 if (secim_2 != 0) {
-                    cout << "|| Bu menüde farklý bir iþlem yapmak istermisiniz (E/e H/h): ";
+                    cout << "|| Bu menÃ¼de farklÄ± bir iÅŸlem yapmak istermisiniz (E/e H/h): ";
                     cin >> mDevam;
                     cin.ignore();
                 } else mDevam = 'h';
@@ -533,12 +533,12 @@ int main() {
             char mDevam;
             do {
                 system("cls");
-                cout << "|| MÜSTERÝ ÝÞLEMLERÝ " << endl;
-                cout << "|| 1-Müþteri Ekle" << endl;
-                cout << "|| 2-Muþterileri Listele" << endl;
-                cout << "|| 3-Müþteri Sil" << endl;
-                cout << "|| 0-Cikiþ" << endl;
-                cout << "|| Lütfen Yapmak Ýstediginiz Ýþleimi Seciniz: ";
+                cout << "|| MÃœSTERÄ° Ä°ÅžLEMLERÄ° " << endl;
+                cout << "|| 1-MÃ¼ÅŸteri Ekle" << endl;
+                cout << "|| 2-MuÅŸterileri Listele" << endl;
+                cout << "|| 3-MÃ¼ÅŸteri Sil" << endl;
+                cout << "|| 0-CikiÅŸ" << endl;
+                cout << "|| LÃ¼tfen Yapmak Ä°stediginiz Ä°ÅŸleimi Seciniz: ";
                 cin >> secim_2;
                 cin.ignore();
                 
@@ -548,7 +548,7 @@ int main() {
                     case 3: musteriSil(); break;
                 }
                 if (secim_2 != 0) {
-                    cout << "|| Bu menüde farklý bir iþlem yapmak istermisiniz (E/e H/h): ";
+                    cout << "|| Bu menÃ¼de farklÄ± bir iÅŸlem yapmak istermisiniz (E/e H/h): ";
                     cin >> mDevam;
                     cin.ignore();
                 } else mDevam = 'h';
@@ -558,11 +558,11 @@ int main() {
             char mDevam;
             do {
                 system("cls");
-                cout << "|| SATIÞ ÝÞLEMLERÝ " << endl;
-                cout << "|| 1-Satýþ Yap" << endl;
-                cout << "|| 2-Satýþlarý Listele" << endl;
-                cout << "|| 0-Cikiþ" << endl;
-                cout << "|| Lütfen Yapmak Ýstediginiz Ýþlemi Seciniz: ";
+                cout << "|| SATIÅž Ä°ÅžLEMLERÄ° " << endl;
+                cout << "|| 1-SatÄ±ÅŸ Yap" << endl;
+                cout << "|| 2-SatÄ±ÅŸlarÄ± Listele" << endl;
+                cout << "|| 0-CikiÅŸ" << endl;
+                cout << "|| LÃ¼tfen Yapmak Ä°stediginiz Ä°ÅŸlemi Seciniz: ";
                 cin >> secim_2;
                 cin.ignore();
                 
@@ -571,7 +571,7 @@ int main() {
                     case 2: satisListele(); break;
                 }
                 if (secim_2 != 0) {
-                    cout << "|| Bu menüde farklý bir iþlemi yapmak istermisiniz (E/e H/h): ";
+                    cout << "|| Bu menÃ¼de farklÄ± bir iÅŸlemi yapmak istermisiniz (E/e H/h): ";
                     cin >> mDevam;
                     cin.ignore();
                 } else mDevam = 'h';
@@ -581,7 +581,7 @@ int main() {
             aramaYap();
         }
 
-        cout << "|| Menüye dönmek istermisiniz(E/e H/h): ";
+        cout << "|| MenÃ¼ye dÃ¶nmek istermisiniz(E/e H/h): ";
         cin >> devam;
         cin.ignore();
         
